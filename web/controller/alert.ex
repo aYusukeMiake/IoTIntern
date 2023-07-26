@@ -7,6 +7,8 @@ defmodule IotIntern.Controller.Alert do
   # alias IotIntern.Linkit
 
   def post_alert(%{request: %{body: _body}} = conn) do
-    Conn.json(conn, 200, %{})
+    {:ok, datetime} = DateTime.now("Etc/UTC")
+    datetime_iso8601 = DateTime.truncate(datetime, :second)
+    Conn.json(conn, 200, %{sent_at: datetime_iso8601})
   end
 end
